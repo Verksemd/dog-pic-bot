@@ -1,10 +1,10 @@
-from telegram.ext import Updater, CommandHandler
+from telegram.ext import Updater, CommandHandler #adding telegram to requirements.txt breaks the code
 import requests
 import re
 import os
-PORT = int(os.environ.get('PORT', 5000))
-TOKEN = '1291793507:AAEFTLlDmmUnO2hta3pzH5Q4qHaOYxwSi0g'
 
+PORT = int(os.environ.get('PORT', '8443'))
+TOKEN = os.environ.get('TG_TOKEN')
 
 def get_url():
     contents = requests.get('https://random.dog/woof.json').json()
@@ -31,9 +31,9 @@ def main():
     dp.add_handler(CommandHandler('bop', bop))
     updater.start_webhook(
         listen="0.0.0.0",
-        port=int(PORT),
+        port=PORT,
         url_path=TOKEN)
-    updater.bot.setWebhook('https://salty-tor-57263.herokuapp.com/' + TOKEN)
+    updater.bot.set_webhook('https://salty-tor-57263.herokuapp.com/' + TOKEN)
     updater.idle()
 
 
